@@ -1,13 +1,13 @@
 diff -crB mutt-1.5.24/PATCHES mutt/PATCHES
-*** mutt-1.5.24/PATCHES  2015-08-30 13:06:38.000000000 -0400
---- mutt/PATCHES  2015-10-14 14:46:43.000000000 -0400
+*** mutt-1.5.24/PATCHES	2015-08-30 13:06:38.000000000 -0400
+--- mutt/PATCHES	2015-10-14 14:46:43.000000000 -0400
 ***************
 *** 0 ****
 --- 1 ----
 + mutt-1.5.8-indexcolor-3
 diff -crB mutt-1.5.24/color.c mutt/color.c
-*** mutt-1.5.24/color.c  2015-08-30 13:06:38.000000000 -0400
---- mutt/color.c  2015-10-14 14:46:43.000000000 -0400
+*** mutt-1.5.24/color.c	2015-08-30 13:06:38.000000000 -0400
+--- mutt/color.c	2015-10-14 14:46:43.000000000 -0400
 ***************
 *** 35,40 ****
 --- 35,42 ----
@@ -22,18 +22,18 @@ diff -crB mutt-1.5.24/color.c mutt/color.c
 ***************
 *** 94,99 ****
 --- 96,109 ----
-    { "underline",  MT_COLOR_UNDERLINE },
-    { "index",    MT_COLOR_INDEX },
-    { "prompt",    MT_COLOR_PROMPT },
-+   { "index_subject",  MT_COLOR_INDEX_SUBJECT },
-+   { "index_author",  MT_COLOR_INDEX_AUTHOR },
-+   { "index_collapsed",  MT_COLOR_INDEX_COLLAPSED },
-+   { "index_date",  MT_COLOR_INDEX_DATE },
-+   { "index_flags",  MT_COLOR_INDEX_FLAGS },
-+   { "index_label",  MT_COLOR_INDEX_LABEL },
-+   { "index_number",  MT_COLOR_INDEX_NUMBER },
-+   { "index_size",  MT_COLOR_INDEX_SIZE },
-    { NULL,    0 }
+    { "underline",	MT_COLOR_UNDERLINE },
+    { "index",		MT_COLOR_INDEX },
+    { "prompt",		MT_COLOR_PROMPT },
++   { "index_subject",	MT_COLOR_INDEX_SUBJECT },
++   { "index_author",	MT_COLOR_INDEX_AUTHOR },
++   { "index_collapsed",	MT_COLOR_INDEX_COLLAPSED },
++   { "index_date",	MT_COLOR_INDEX_DATE },
++   { "index_flags",	MT_COLOR_INDEX_FLAGS },
++   { "index_label",	MT_COLOR_INDEX_LABEL },
++   { "index_number",	MT_COLOR_INDEX_NUMBER },
++   { "index_size",	MT_COLOR_INDEX_SIZE },
+    { NULL,		0 }
   };
   
 ***************
@@ -44,7 +44,7 @@ diff -crB mutt-1.5.24/color.c mutt/color.c
   
 + static void
 + mutt_do_uncolor (BUFFER *buf, BUFFER *s, COLOR_LINE **ColorList, 
-+           int *do_cache, int parse_uncolor)
++     			int *do_cache, int parse_uncolor)
 + {
 +   COLOR_LINE *tmp, *last = NULL;
 + 
@@ -56,10 +56,10 @@ diff -crB mutt-1.5.24/color.c mutt/color.c
 +       for (tmp = *ColorList; tmp; )
 +       {
 +         if (!*do_cache)
-+     *do_cache = 1;
-+   last = tmp;
-+   tmp = tmp->next;
-+   mutt_free_color_line(&last, parse_uncolor);
++ 	  *do_cache = 1;
++ 	last = tmp;
++ 	tmp = tmp->next;
++ 	mutt_free_color_line(&last, parse_uncolor);
 +       }
 +       *ColorList = NULL;
 +     }
@@ -67,19 +67,19 @@ diff -crB mutt-1.5.24/color.c mutt/color.c
 +     {
 +       for (last = NULL, tmp = *ColorList; tmp; last = tmp, tmp = tmp->next)
 +       {
-+   if (!mutt_strcmp (buf->data, tmp->pattern))
-+   {
++ 	if (!mutt_strcmp (buf->data, tmp->pattern))
++ 	{
 +           if (!*do_cache)
-+       *do_cache = 1;
-+     dprint(1,(debugfile,"Freeing pattern \"%s\" from ColorList\n",
-+                          tmp->pattern));
-+     if (last)
-+       last->next = tmp->next;
-+     else
-+       *ColorList = tmp->next;
-+     mutt_free_color_line(&tmp, parse_uncolor);
-+     break;
-+   }
++ 	    *do_cache = 1;
++ 	  dprint(1,(debugfile,"Freeing pattern \"%s\" from ColorList\n",
++ 	                       tmp->pattern));
++ 	  if (last)
++ 	    last->next = tmp->next;
++ 	  else
++ 	    *ColorList = tmp->next;
++ 	  mutt_free_color_line(&tmp, parse_uncolor);
++ 	  break;
++ 	}
 +       }
 +     }
 +   }
@@ -87,7 +87,7 @@ diff -crB mutt-1.5.24/color.c mutt/color.c
 + }
 + 
   static int _mutt_parse_uncolor (BUFFER *buf, BUFFER *s, unsigned long data,
-          BUFFER *err, short parse_uncolor)
+  				BUFFER *err, short parse_uncolor)
   {
 ***************
 *** 380,385 ****
@@ -118,10 +118,10 @@ diff -crB mutt-1.5.24/color.c mutt/color.c
 !       for (tmp = *list; tmp; )
 !       {
 !         if (!do_cache)
-!     do_cache = 1;
-!   last = tmp;
-!   tmp = tmp->next;
-!   mutt_free_color_line(&last, parse_uncolor);
+! 	  do_cache = 1;
+! 	last = tmp;
+! 	tmp = tmp->next;
+! 	mutt_free_color_line(&last, parse_uncolor);
 !       }
 !       *list = NULL;
 !     }
@@ -129,19 +129,19 @@ diff -crB mutt-1.5.24/color.c mutt/color.c
 !     {
 !       for (last = NULL, tmp = *list; tmp; last = tmp, tmp = tmp->next)
 !       {
-!   if (!mutt_strcmp (buf->data, tmp->pattern))
-!   {
+! 	if (!mutt_strcmp (buf->data, tmp->pattern))
+! 	{
 !           if (!do_cache)
-!       do_cache = 1;
-!     dprint(1,(debugfile,"Freeing pattern \"%s\" from color list\n",
-!                          tmp->pattern));
-!     if (last)
-!       last->next = tmp->next;
-!     else
-!       *list = tmp->next;
-!     mutt_free_color_line(&tmp, parse_uncolor);
-!     break;
-!   }
+! 	    do_cache = 1;
+! 	  dprint(1,(debugfile,"Freeing pattern \"%s\" from color list\n",
+! 	                       tmp->pattern));
+! 	  if (last)
+! 	    last->next = tmp->next;
+! 	  else
+! 	    *list = tmp->next;
+! 	  mutt_free_color_line(&tmp, parse_uncolor);
+! 	  break;
+! 	}
 !       }
 !     }
 !   }
@@ -189,13 +189,13 @@ diff -crB mutt-1.5.24/color.c mutt/color.c
 +   else if (object == MT_COLOR_INDEX_SUBJECT)
 +   {
 +     r = add_pattern (&ColorIndexSubjectList, buf->data,
-+          1, fg, bg, attr, err, 1);
++ 		     1, fg, bg, attr, err, 1);
 +     set_option (OPTFORCEREDRAWINDEX);
 +   }
 +   else if (object == MT_COLOR_INDEX_AUTHOR)
 +   {
 +     r = add_pattern (&ColorIndexAuthorList, buf->data,
-+          1, fg, bg, attr, err, 1);
++ 		     1, fg, bg, attr, err, 1);
 +     set_option (OPTFORCEREDRAWINDEX);
 +   }
     else if (object == MT_COLOR_QUOTED)
@@ -217,8 +217,8 @@ diff -crB mutt-1.5.24/color.c mutt/color.c
   }
 Only in mutt/: color.c.orig
 diff -crB mutt-1.5.24/curs_lib.c mutt/curs_lib.c
-*** mutt-1.5.24/curs_lib.c  2015-08-30 13:06:38.000000000 -0400
---- mutt/curs_lib.c  2015-10-14 14:46:43.000000000 -0400
+*** mutt-1.5.24/curs_lib.c	2015-08-30 13:06:38.000000000 -0400
+--- mutt/curs_lib.c	2015-10-14 14:46:43.000000000 -0400
 ***************
 *** 726,731 ****
 --- 726,732 ----
@@ -256,8 +256,8 @@ diff -crB mutt-1.5.24/curs_lib.c mutt/curs_lib.c
       {
 Only in mutt/: curs_lib.c.orig
 diff -crB mutt-1.5.24/hdrline.c mutt/hdrline.c
-*** mutt-1.5.24/hdrline.c  2015-08-30 13:06:38.000000000 -0400
---- mutt/hdrline.c  2015-10-14 14:46:43.000000000 -0400
+*** mutt-1.5.24/hdrline.c	2015-08-30 13:06:38.000000000 -0400
+--- mutt/hdrline.c	2015-10-14 14:46:43.000000000 -0400
 ***************
 *** 103,108 ****
 --- 103,136 ----
@@ -268,7 +268,7 @@ diff -crB mutt-1.5.24/hdrline.c mutt/hdrline.c
 +  * arguments.
 +  * Returns the number of chars written. */
 + static size_t add_index_color(char *buf, size_t buflen,
-+              format_flag flags, char color)
++     			   format_flag flags, char color)
 + {
 +   int len;
 + 
@@ -339,23 +339,23 @@ diff -crB mutt-1.5.24/hdrline.c mutt/hdrline.c
   
 ***************
 *** 408,414 ****
-    if (do_locales)
-      setlocale (LC_TIME, "C");
+  	if (do_locales)
+  	  setlocale (LC_TIME, "C");
   
-!   mutt_format_s (dest, destlen, prefix, buf2);
-    if (len > 0 && op != 'd' && op != 'D') /* Skip ending op */
-      src = cp + 1;
+! 	mutt_format_s (dest, destlen, prefix, buf2);
+  	if (len > 0 && op != 'd' && op != 'D') /* Skip ending op */
+  	  src = cp + 1;
         }
 --- 442,451 ----
-    if (do_locales)
-      setlocale (LC_TIME, "C");
+  	if (do_locales)
+  	  setlocale (LC_TIME, "C");
   
-!   colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_DATE);
-!   mutt_format_s (dest+colorlen, destlen-colorlen, prefix, buf2);
-!   add_index_color(dest+colorlen, destlen-colorlen, flags, MT_COLOR_INDEX);
+! 	colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_DATE);
+! 	mutt_format_s (dest+colorlen, destlen-colorlen, prefix, buf2);
+! 	add_index_color(dest+colorlen, destlen-colorlen, flags, MT_COLOR_INDEX);
 ! 
-    if (len > 0 && op != 'd' && op != 'D') /* Skip ending op */
-      src = cp + 1;
+  	if (len > 0 && op != 'd' && op != 'D') /* Skip ending op */
+  	  src = cp + 1;
         }
 ***************
 *** 438,445 ****
@@ -363,7 +363,7 @@ diff -crB mutt-1.5.24/hdrline.c mutt/hdrline.c
         if (!optional)
         {
           make_from (hdr->env, buf2, sizeof (buf2), 0);
-!   mutt_format_s (dest, destlen, prefix, buf2);
+! 	mutt_format_s (dest, destlen, prefix, buf2);
         }
         else if (mutt_addr_is_user (hdr->env->from))
           optional = 0;
@@ -371,10 +371,10 @@ diff -crB mutt-1.5.24/hdrline.c mutt/hdrline.c
       case 'F':
         if (!optional)
         {
-+   colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_AUTHOR);
++ 	colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_AUTHOR);
           make_from (hdr->env, buf2, sizeof (buf2), 0);
-!   mutt_format_s (dest+colorlen, destlen-colorlen, prefix, buf2);
-!   add_index_color(dest+colorlen, destlen-colorlen, flags, MT_COLOR_INDEX);
+! 	mutt_format_s (dest+colorlen, destlen-colorlen, prefix, buf2);
+! 	add_index_color(dest+colorlen, destlen-colorlen, flags, MT_COLOR_INDEX);
         }
         else if (mutt_addr_is_user (hdr->env->from))
           optional = 0;
@@ -382,18 +382,18 @@ diff -crB mutt-1.5.24/hdrline.c mutt/hdrline.c
 *** 465,471 ****
         if (!optional)
         {
-    snprintf (fmt, sizeof (fmt), "%%%sd", prefix);
-!   snprintf (dest, destlen, fmt, (int) hdr->lines);
+  	snprintf (fmt, sizeof (fmt), "%%%sd", prefix);
+! 	snprintf (dest, destlen, fmt, (int) hdr->lines);
         }
         else if (hdr->lines <= 0)
           optional = 0;
 --- 504,512 ----
         if (!optional)
         {
-    snprintf (fmt, sizeof (fmt), "%%%sd", prefix);
-!   colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_SIZE);
-!   snprintf (dest+colorlen, destlen-colorlen, fmt, (int) hdr->lines);
-!   add_index_color(dest+colorlen, destlen-colorlen, flags, MT_COLOR_INDEX);
+  	snprintf (fmt, sizeof (fmt), "%%%sd", prefix);
+! 	colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_SIZE);
+! 	snprintf (dest+colorlen, destlen-colorlen, fmt, (int) hdr->lines);
+! 	add_index_color(dest+colorlen, destlen-colorlen, flags, MT_COLOR_INDEX);
         }
         else if (hdr->lines <= 0)
           optional = 0;
@@ -402,105 +402,105 @@ diff -crB mutt-1.5.24/hdrline.c mutt/hdrline.c
       case 'L':
         if (!optional)
         {
-    make_from (hdr->env, buf2, sizeof (buf2), 1);
-!   mutt_format_s (dest, destlen, prefix, buf2);
+  	make_from (hdr->env, buf2, sizeof (buf2), 1);
+! 	mutt_format_s (dest, destlen, prefix, buf2);
         }
         else if (!check_for_mailing_list (hdr->env->to, NULL, NULL, 0) &&
-           !check_for_mailing_list (hdr->env->cc, NULL, NULL, 0))
+  	       !check_for_mailing_list (hdr->env->cc, NULL, NULL, 0))
 --- 515,524 ----
       case 'L':
         if (!optional)
         {
-+   colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_AUTHOR);
-    make_from (hdr->env, buf2, sizeof (buf2), 1);
-!   mutt_format_s (dest+colorlen, destlen-colorlen, prefix, buf2);
-!   add_index_color(dest+colorlen, destlen-colorlen, flags, MT_COLOR_INDEX);
++ 	colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_AUTHOR);
+  	make_from (hdr->env, buf2, sizeof (buf2), 1);
+! 	mutt_format_s (dest+colorlen, destlen-colorlen, prefix, buf2);
+! 	add_index_color(dest+colorlen, destlen-colorlen, flags, MT_COLOR_INDEX);
         }
         else if (!check_for_mailing_list (hdr->env->to, NULL, NULL, 0) &&
-           !check_for_mailing_list (hdr->env->cc, NULL, NULL, 0))
+  	       !check_for_mailing_list (hdr->env->cc, NULL, NULL, 0))
 ***************
 *** 530,539 ****
         snprintf (fmt, sizeof (fmt), "%%%sd", prefix);
         if (!optional)
         {
-!   if (threads && is_index && hdr->collapsed && hdr->num_hidden > 1)
-!     snprintf (dest, destlen, fmt, hdr->num_hidden);
-!   else if (is_index && threads)
-!     mutt_format_s (dest, destlen, prefix, " ");
-    else
-      *dest = '\0';
+! 	if (threads && is_index && hdr->collapsed && hdr->num_hidden > 1)
+! 	  snprintf (dest, destlen, fmt, hdr->num_hidden);
+! 	else if (is_index && threads)
+! 	  mutt_format_s (dest, destlen, prefix, " ");
+  	else
+  	  *dest = '\0';
         }
 --- 573,588 ----
         snprintf (fmt, sizeof (fmt), "%%%sd", prefix);
         if (!optional)
         {
-!   colorlen = add_index_color(dest, destlen, flags, 
-!            MT_COLOR_INDEX_COLLAPSED);
-!   if (threads && is_index && hdr->collapsed && hdr->num_hidden > 1) {
-!     snprintf (dest+colorlen, destlen-colorlen, fmt, hdr->num_hidden);
-!     add_index_color(dest, destlen-colorlen, flags, MT_COLOR_INDEX);
-!   }
-!   else if (is_index && threads) {
-!     mutt_format_s (dest+colorlen, destlen-colorlen, prefix, " ");
-!     add_index_color(dest, destlen-colorlen, flags, MT_COLOR_INDEX);
-!   }
-    else
-      *dest = '\0';
+! 	colorlen = add_index_color(dest, destlen, flags, 
+! 				   MT_COLOR_INDEX_COLLAPSED);
+! 	if (threads && is_index && hdr->collapsed && hdr->num_hidden > 1) {
+! 	  snprintf (dest+colorlen, destlen-colorlen, fmt, hdr->num_hidden);
+! 	  add_index_color(dest, destlen-colorlen, flags, MT_COLOR_INDEX);
+! 	}
+! 	else if (is_index && threads) {
+! 	  mutt_format_s (dest+colorlen, destlen-colorlen, prefix, " ");
+! 	  add_index_color(dest, destlen-colorlen, flags, MT_COLOR_INDEX);
+! 	}
+  	else
+  	  *dest = '\0';
         }
 ***************
 *** 554,568 ****
         {
-    if (flags & M_FORMAT_FORCESUBJ)
-    {
-!     mutt_format_s (dest, destlen, "", NONULL (hdr->env->subject));
-      snprintf (buf2, sizeof (buf2), "%s%s", hdr->tree, dest);
-      mutt_format_s_tree (dest, destlen, prefix, buf2);
-    }
-    else
-      mutt_format_s_tree (dest, destlen, prefix, hdr->tree);
+  	if (flags & M_FORMAT_FORCESUBJ)
+  	{
+! 	  mutt_format_s (dest, destlen, "", NONULL (hdr->env->subject));
+  	  snprintf (buf2, sizeof (buf2), "%s%s", hdr->tree, dest);
+  	  mutt_format_s_tree (dest, destlen, prefix, buf2);
+  	}
+  	else
+  	  mutt_format_s_tree (dest, destlen, prefix, hdr->tree);
         }
 !       else
-!   mutt_format_s (dest, destlen, prefix, NONULL (hdr->env->subject));
+! 	mutt_format_s (dest, destlen, prefix, NONULL (hdr->env->subject));
         break;
   
       case 'S':
 --- 603,625 ----
         {
-    if (flags & M_FORMAT_FORCESUBJ)
-    {
-!     colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_SUBJECT);
-!     mutt_format_s (dest+colorlen, destlen-colorlen, "", 
-!         NONULL (hdr->env->subject));
-!     add_index_color(dest+colorlen, destlen-colorlen, flags, MT_COLOR_INDEX);
+  	if (flags & M_FORMAT_FORCESUBJ)
+  	{
+! 	  colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_SUBJECT);
+! 	  mutt_format_s (dest+colorlen, destlen-colorlen, "", 
+! 	      NONULL (hdr->env->subject));
+! 	  add_index_color(dest+colorlen, destlen-colorlen, flags, MT_COLOR_INDEX);
 ! 
-      snprintf (buf2, sizeof (buf2), "%s%s", hdr->tree, dest);
-      mutt_format_s_tree (dest, destlen, prefix, buf2);
-    }
-    else
-      mutt_format_s_tree (dest, destlen, prefix, hdr->tree);
+  	  snprintf (buf2, sizeof (buf2), "%s%s", hdr->tree, dest);
+  	  mutt_format_s_tree (dest, destlen, prefix, buf2);
+  	}
+  	else
+  	  mutt_format_s_tree (dest, destlen, prefix, hdr->tree);
         }
 !       else {
-!   colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_SUBJECT);
-!   mutt_format_s (dest+colorlen, destlen-colorlen, prefix, 
-!       NONULL (hdr->env->subject));
-!   add_index_color(dest+colorlen, destlen-colorlen, flags, MT_COLOR_INDEX);
+! 	colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_SUBJECT);
+! 	mutt_format_s (dest+colorlen, destlen-colorlen, prefix, 
+! 	    NONULL (hdr->env->subject));
+! 	add_index_color(dest+colorlen, destlen-colorlen, flags, MT_COLOR_INDEX);
 !       }
         break;
   
       case 'S':
 ***************
 *** 658,664 ****
-      hdr->tagged ? '*' :
-      (hdr->flagged ? '!' :
-       (Tochars && ((i = mutt_user_is_recipient (hdr)) < mutt_strlen (Tochars)) ? Tochars[i] : ' ')));
+  		hdr->tagged ? '*' :
+  		(hdr->flagged ? '!' :
+  		 (Tochars && ((i = mutt_user_is_recipient (hdr)) < mutt_strlen (Tochars)) ? Tochars[i] : ' ')));
 !       mutt_format_s (dest, destlen, prefix, buf2);
         break;
   
       case 'X':
 --- 715,723 ----
-      hdr->tagged ? '*' :
-      (hdr->flagged ? '!' :
-       (Tochars && ((i = mutt_user_is_recipient (hdr)) < mutt_strlen (Tochars)) ? Tochars[i] : ' ')));
+  		hdr->tagged ? '*' :
+  		(hdr->flagged ? '!' :
+  		 (Tochars && ((i = mutt_user_is_recipient (hdr)) < mutt_strlen (Tochars)) ? Tochars[i] : ' ')));
 !       colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_FLAGS);
 !       mutt_format_s (dest+colorlen, destlen-colorlen, prefix, buf2);
 !       add_index_color(dest+colorlen, destlen-colorlen, flags, MT_COLOR_INDEX);
@@ -510,7 +510,7 @@ diff -crB mutt-1.5.24/hdrline.c mutt/hdrline.c
 ***************
 *** 678,684 ****
          if (optional)
-     optional = hdr->env->x_label ? 1 : 0;
+  	 optional = hdr->env->x_label ? 1 : 0;
   
 !        mutt_format_s (dest, destlen, prefix, NONULL (hdr->env->x_label));
          break;
@@ -518,7 +518,7 @@ diff -crB mutt-1.5.24/hdrline.c mutt/hdrline.c
       case 'Y':
 --- 737,745 ----
          if (optional)
-     optional = hdr->env->x_label ? 1 : 0;
+  	 optional = hdr->env->x_label ? 1 : 0;
   
 !        colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_LABEL);
 !        mutt_format_s (dest+colorlen, destlen-colorlen, prefix, NONULL (hdr->env->x_label));
@@ -529,7 +529,7 @@ diff -crB mutt-1.5.24/hdrline.c mutt/hdrline.c
 ***************
 *** 704,713 ****
         if (optional)
-    optional = i;
+  	optional = i;
   
         if (i)
 !         mutt_format_s (dest, destlen, prefix, NONULL (hdr->env->x_label));
@@ -540,7 +540,7 @@ diff -crB mutt-1.5.24/hdrline.c mutt/hdrline.c
   
 --- 765,776 ----
         if (optional)
-    optional = i;
+  	optional = i;
   
 +       colorlen = add_index_color(dest, destlen, flags, MT_COLOR_INDEX_LABEL);
         if (i)
@@ -552,8 +552,8 @@ diff -crB mutt-1.5.24/hdrline.c mutt/hdrline.c
         break;
   
 diff -crB mutt-1.5.24/menu.c mutt/menu.c
-*** mutt-1.5.24/menu.c  2015-08-30 13:06:38.000000000 -0400
---- mutt/menu.c  2015-10-14 14:46:43.000000000 -0400
+*** mutt-1.5.24/menu.c	2015-08-30 13:06:38.000000000 -0400
+--- mutt/menu.c	2015-10-14 14:46:43.000000000 -0400
 ***************
 *** 29,35 ****
   
@@ -584,7 +584,7 @@ diff -crB mutt-1.5.24/menu.c mutt/menu.c
 ! 
 !   for (; color; color = color->next)
 !     if (mutt_pattern_exec (color->color_pattern, M_MATCH_FULL_ADDRESS, 
-!   Context, hdr))
+! 	Context, hdr))
 !       return color->pair;
 ! 
 !   return 0;
@@ -604,10 +604,10 @@ diff -crB mutt-1.5.24/menu.c mutt/menu.c
 +     {
 +       s++;
 +       if (do_color) {
-+   if (*s == MT_COLOR_INDEX)
-+     attrset(attr);
-+   else
-+     attron(get_color(index, *s));
++ 	if (*s == MT_COLOR_INDEX)
++ 	  attrset(attr);
++ 	else
++ 	  attron(get_color(index, *s));
 +       }
 +       s++; 
 +       n -= 2;
@@ -618,7 +618,7 @@ diff -crB mutt-1.5.24/menu.c mutt/menu.c
 ***************
 *** 267,273 ****
         else if (option(OPTARROWCURSOR))
-    addstr("   ");
+  	addstr("   ");
   
 !       print_enriched_string (attr, (unsigned char *) buf, do_color);
       }
@@ -626,7 +626,7 @@ diff -crB mutt-1.5.24/menu.c mutt/menu.c
       {
 --- 302,308 ----
         else if (option(OPTARROWCURSOR))
-    addstr("   ");
+  	addstr("   ");
   
 !       print_enriched_string (i, attr, (unsigned char *) buf, do_color);
       }
@@ -704,22 +704,22 @@ diff -crB mutt-1.5.24/menu.c mutt/menu.c
     NORMAL_COLOR;
   }
 diff -crB mutt-1.5.24/mutt.h mutt/mutt.h
-*** mutt-1.5.24/mutt.h  2015-08-30 13:06:38.000000000 -0400
---- mutt/mutt.h  2015-10-14 14:46:43.000000000 -0400
+*** mutt-1.5.24/mutt.h	2015-08-30 13:06:38.000000000 -0400
+--- mutt/mutt.h	2015-10-14 14:46:43.000000000 -0400
 ***************
 *** 161,166 ****
 --- 161,168 ----
-  #define M_TREE_MISSING    13
-  #define M_TREE_MAX    14
+  #define M_TREE_MISSING		13
+  #define M_TREE_MAX		14
   
-+ #define M_SPECIAL_INDEX    M_TREE_MAX
++ #define M_SPECIAL_INDEX		M_TREE_MAX
 + 
-  #define M_THREAD_COLLAPSE  (1<<0)
-  #define M_THREAD_UNCOLLAPSE  (1<<1)
-  #define M_THREAD_GET_HIDDEN  (1<<2)
+  #define M_THREAD_COLLAPSE	(1<<0)
+  #define M_THREAD_UNCOLLAPSE	(1<<1)
+  #define M_THREAD_GET_HIDDEN	(1<<2)
 diff -crB mutt-1.5.24/mutt_curses.h mutt/mutt_curses.h
-*** mutt-1.5.24/mutt_curses.h  2015-08-30 13:06:38.000000000 -0400
---- mutt/mutt_curses.h  2015-10-14 14:46:43.000000000 -0400
+*** mutt-1.5.24/mutt_curses.h	2015-08-30 13:06:38.000000000 -0400
+--- mutt/mutt_curses.h	2015-10-14 14:46:43.000000000 -0400
 ***************
 *** 121,126 ****
 --- 121,136 ----
