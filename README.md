@@ -26,6 +26,7 @@ tap; or install passing the full formula name:
 
 Install with tap-pin:
 
+    $ brew tap colinstein/mutt
     $ brew tap-pin colinstein/mutt
     $ brew install mutt
 
@@ -37,6 +38,7 @@ Install with full path:
 Chances are good you're using this tap so that you can gain access to the
 features added in the patches. In those cases you should use:
 
+    $ brew tap colinstein/mutt
     $ brew tap-pin colinstein/mutt
     $ brew install mutt --with-trash-patch --with-sidebar-patch \
       --with-index-color-patch --with-s-lang
