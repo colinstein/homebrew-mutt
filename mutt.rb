@@ -7,7 +7,9 @@
 # --with-index-color-patch adds syntax-highlighting to the message index
 # --with-trash-patch which adds a "trash" folder where deleted messages are
 # sent automatically instead of being left to clutter mailboxes.
-
+#
+# Note that the index-color-patch and sidebar-patch conflict with one-another
+# and you must choose one or the other to install.
 class Mutt < Formula
   desc "The Mutt mail client with sidebar and trash patches"
   homepage "http://www.mutt.org/"
