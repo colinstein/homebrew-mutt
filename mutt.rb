@@ -67,7 +67,7 @@ class Mutt < Formula
   if build.with? "index-color-patch"
     patch do
       url "https://github.com/colinstein/homebrew-mutt/blob/master/indexcolor.patch"
-      sha256 "44811aa166b3cb89c765c1019062cf0af76f3958596d0aa27b4fcfb7602a6bf6"
+      sha256 "d212034acf2b264b6835502f6d5b1b71791800ce24b544e75c4b61fdec85c7ec"
     end
   end
 
