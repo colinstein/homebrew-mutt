@@ -64,7 +64,7 @@ class Mutt < Formula
     end
   end
 
-  if build.with? "with-index-color-patch"
+  if build.with? "index-color-patch"
     patch do
       url "https://github.com/colinstein/homebrew-mutt/blob/master/indexcolor.patch"
       sha256 "44811aa166b3cb89c765c1019062cf0af76f3958596d0aa27b4fcfb7602a6bf6"
@@ -78,14 +78,14 @@ class Mutt < Formula
     end
   end
 
-  if build.with? "with-sidebar-patch"
+  if build.with? "sidebar-patch"
     patch do
       url "https://raw.githubusercontent.com/colinstein/homebrew-mutt/master/sidebar.patch"
       sha256 "f4cf62c93d9a6a3fef9b00b8badc6dcec063f5c0d4b7484360dc21e94c3a1eac"
     end
   end
 
-  if build.with? "with-trash-patch"
+  if build.with? "trash-patch"
     patch do
       url "https://raw.githubusercontent.com/colinstein/homebrew-mutt/master/trash.patch"
       sha256 "970090f05bce7b914694099b6b93b2054f176a8da2b498e450a6e530e054d147"
