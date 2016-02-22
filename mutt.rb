@@ -88,33 +88,11 @@ class Mutt < Formula
 
   if build.with? "sidebar-patch"
     patch do
-      url "https://raw.githubusercontent.com/colinstein/homebrew-mutt/master/sidebar.patch"
-      sha256 "f4cf62c93d9a6a3fef9b00b8badc6dcec063f5c0d4b7484360dc21e94c3a1eac"
+      url "http://lunar-linux.org/~tchan/mutt/patch-1.5.24.sidebar.20150917.txt"
+      sha256 "ddc2baeb4d882ac32b5c54965dfb3a9b3164b2387888be33f4c1d16ebbea5b98"
     end
   end
 
-#  if build.with? "index-color-patch"
-#    patch do
-#      url "https://raw.githubusercontent.com/colinstein/homebrew-mutt/master/indexcolor.patch"
-#      sha256 "44811aa166b3cb89c765c1019062cf0af76f3958596d0aa27b4fcfb7602a6bf6"
-#    end
-#  end
-#
-#
-#  if build.with? "sidebar-patch"
-#    patch do
-#      url "https://raw.githubusercontent.com/colinstein/homebrew-mutt/master/sidebar.patch"
-#      sha256 "f4cf62c93d9a6a3fef9b00b8badc6dcec063f5c0d4b7484360dc21e94c3a1eac"
-#    end
-#  end
-#
-#  if build.with? "trash-patch"
-#    patch do
-#      url "https://raw.githubusercontent.com/colinstein/homebrew-mutt/master/trash.patch"
-#      sha256 "970090f05bce7b914694099b6b93b2054f176a8da2b498e450a6e530e054d147"
-#    end
-#  end
-#
   def install
     user_admin = Etc.getgrnam("admin").mem.include?(ENV["USER"])
 
