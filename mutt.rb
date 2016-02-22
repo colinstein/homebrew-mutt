@@ -4,6 +4,7 @@
 #
 # This formula adds the following build flags:
 # --with-sidebar-patch which adds and 'outlook' or 'mail.app' style sidebar
+# --with-index-color-patch adds syntax-highlighting to the message index
 # --with-trash-patch which adds a "trash" folder where deleted messages are
 # sent automatically instead of being left to clutter mailboxes.
 
@@ -64,17 +65,24 @@ class Mutt < Formula
     end
   end
 
-  if build.with? "index-color-patch"
-    patch do
-      url "https://raw.githubusercontent.com/colinstein/homebrew-mutt/master/indexcolor.patch"
-      sha256 "44811aa166b3cb89c765c1019062cf0af76f3958596d0aa27b4fcfb7602a6bf6"
-    end
-  end
-
   if build.with? "confirm-attachment-patch"
     patch do
       url "https://gist.githubusercontent.com/tlvince/5741641/raw/c926ca307dc97727c2bd88a84dcb0d7ac3bb4bf5/mutt-attach.patch"
       sha256 "da2c9e54a5426019b84837faef18cc51e174108f07dc7ec15968ca732880cb14"
+    end
+  end
+
+  if build.with? "trash-patch"
+    patch do
+      url "https://blog.x-way.org/stuff/mutt-1.5.24-trash_folder.diff"
+      sha256 "985d7f6ae17e15e525b19e348b3a43e78177cea3b775434abcbe7d220bebe934"
+    end
+  end
+
+  if build.with? "index-color-patch"
+    patch do
+      url "https://blog.x-way.org/stuff/mutt-1.5.24-indexcolor.diff"
+      sha256 "96c3ab28e0cb03646fbb0357650628591efabb102596978d1b05960d0e511f33"
     end
   end
 
@@ -85,13 +93,28 @@ class Mutt < Formula
     end
   end
 
-  if build.with? "trash-patch"
-    patch do
-      url "https://raw.githubusercontent.com/colinstein/homebrew-mutt/master/trash.patch"
-      sha256 "970090f05bce7b914694099b6b93b2054f176a8da2b498e450a6e530e054d147"
-    end
-  end
-
+#  if build.with? "index-color-patch"
+#    patch do
+#      url "https://raw.githubusercontent.com/colinstein/homebrew-mutt/master/indexcolor.patch"
+#      sha256 "44811aa166b3cb89c765c1019062cf0af76f3958596d0aa27b4fcfb7602a6bf6"
+#    end
+#  end
+#
+#
+#  if build.with? "sidebar-patch"
+#    patch do
+#      url "https://raw.githubusercontent.com/colinstein/homebrew-mutt/master/sidebar.patch"
+#      sha256 "f4cf62c93d9a6a3fef9b00b8badc6dcec063f5c0d4b7484360dc21e94c3a1eac"
+#    end
+#  end
+#
+#  if build.with? "trash-patch"
+#    patch do
+#      url "https://raw.githubusercontent.com/colinstein/homebrew-mutt/master/trash.patch"
+#      sha256 "970090f05bce7b914694099b6b93b2054f176a8da2b498e450a6e530e054d147"
+#    end
+#  end
+#
   def install
     user_admin = Etc.getgrnam("admin").mem.include?(ENV["USER"])
 
