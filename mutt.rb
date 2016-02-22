@@ -40,7 +40,7 @@ class Mutt < Formula
   option "with-debug", "Build with debug option enabled"
   option "with-s-lang", "Build against slang instead of ncurses"
   option "with-ignore-thread-patch", "Apply ignore-thread patch"
-  option "with-indexicolor-patch", "Apply index color patch"
+  option "with-index-color-patch", "Apply index color patch"
   option "with-confirm-attachment-patch", "Apply confirm attachment patch"
   option "with-sidebar-patch", "Apply sidebar patch"
   option "with-trash-patch", "Apply trash patch"
