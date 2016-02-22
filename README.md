@@ -19,6 +19,9 @@ This tap adds the following features to the standard Mutt formula in homebrew
     messages or manually delete them as needed. This feature is similar to how
     many modern graphical email clients work.
 
+The index color and sidebar patches are not compatible. You will have to choose
+one or the other for now.
+
 ## Installation
 This patch duplicates a formula already available in Homebrew. In order to use
 this as the formula to install mutt you must either: *tap-pin* when adding this
@@ -40,8 +43,7 @@ features added in the patches. In those cases you should use:
 
     $ brew tap colinstein/mutt
     $ brew tap-pin colinstein/mutt
-    $ brew install mutt --with-trash-patch --with-sidebar-patch \
-      --with-index-color-patch --with-s-lang
+    $ brew install mutt --with-trash-patch --with-sidebar-patch --with-s-lang
 
 While s-lang isn't technically reqiured, it does seem to address some colo
 issues when running under iTerm2 on Mac OS X. The other default options in the
